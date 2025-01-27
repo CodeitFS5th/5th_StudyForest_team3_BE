@@ -1,5 +1,5 @@
 import express from "express";
-import { createReaction } from "./service";
+import { createReaction } from "../services/reaction/createReaction";
 
 const router = express.Router();
 
