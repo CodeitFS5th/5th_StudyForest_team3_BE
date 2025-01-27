@@ -1,12 +1,12 @@
-import { Iservice } from "../../type";
+import { RequestHandler } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getHabitList = async ({ req, res }: Iservice) => {};
+export const getHabitList: RequestHandler = async (req, res) => {};
 
-export const createHabit = async ({ req, res }: Iservice) => {};
+export const createHabit: RequestHandler = async (req, res) => {};
 
-export const updateHabit = async ({ req, res }: Iservice) => {};
+export const updateHabit: RequestHandler = async (req, res) => {};
 
-export const deleteHabit = async ({ req, res }: Iservice) => {};
+export const deleteHabit: RequestHandler = async (req, res) => {};
