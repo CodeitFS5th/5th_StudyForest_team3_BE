@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", getHabitList);
 router.post("/", createHabit);
-router.put("/:id", updateHabit);
+router.patch("/:id", updateHabit);
 router.delete("/:id", deleteHabit);
 
 export default router;
