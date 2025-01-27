@@ -1,10 +1,23 @@
+enum imageType {
+  GREEN
+  YELLOW
+  BLUE
+  RED
+  PHOTO_1
+  PHOTO_2
+  PHOTO_3
+}
+
 model Study {
-  id        Int        @id @default(autoincrement())
-  name      String
-  password  String
-  points    Int        @default(0)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Habits    Habit[]
-  Reactions Reaction[]
+  id          Int        @id @default(autoincrement())
+  nick        String
+  name        String
+  description String
+  password    String
+  background  imageType
+  point       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Habits      Habit[]
+  Reactions   Reaction[]
 }

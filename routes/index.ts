@@ -1,7 +1,7 @@
 import express from "express";
-import studyRouter from "./study/controller";
-import reactionRouter from "./reaction/controller";
-import habitRouter from "./habit/controller";
+import studyRouter from "./controllers/study";
+import reactionRouter from "./controllers/reaction";
+import habitRouter from "./controllers/habit";
 
 const router = express.Router();
 

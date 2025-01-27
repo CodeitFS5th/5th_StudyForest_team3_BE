@@ -11,6 +11,7 @@
   "author": "3team",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.10",
     "nodemon": "^3.1.9",
