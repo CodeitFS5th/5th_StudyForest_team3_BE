@@ -1,0 +1,13 @@
+enum HabitStatus {
+  DONE
+  UNDONE
+}
+
+model Habit {
+  id        Int         @id @default(autoincrement())
+  name      String
+  status    HabitStatus @default(UNDONE)
+  study_id  Int
+  createdAt DateTime    @default(now())
+  Study     Study       @relation(fields: [study_id], references: [id])
+}

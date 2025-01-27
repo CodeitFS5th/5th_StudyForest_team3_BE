@@ -1,0 +1,10 @@
+model Study {
+  id        Int        @id @default(autoincrement())
+  name      String
+  password  String
+  points    Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Habits    Habit[]
+  Reactions Reaction[]
+}
