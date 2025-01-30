@@ -1,15 +1,46 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Study {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(10)
+  point     Int      @default(0)
+  password  String   @db.VarChar(40)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Habit          Habit[]
+  CompletedHabit CompletedHabit[]
+  Reaction       Reaction[]
+}
+
+model Habit {
+  id             Int              @id @default(autoincrement())
+  studyId        Int
+  name           String           @db.VarChar(30)
+  CompletedHabit CompletedHabit[]
+  Study          Study            @relation(fields: [studyId], references: [id])
+}
+
+model CompletedHabit {
+  id        Int      @id @default(autoincrement())
+  habitId   Int
+  studyId   Int
+  createdAt DateTime @default(now())
+  Habit     Habit    @relation(fields: [habitId], references: [id])
+  Study     Study    @relation(fields: [studyId], references: [id])
+}
+
+model Reaction {
+  id      Int    @id @default(autoincrement())
+  studyId Int
+  emoji   String
+  count   Int    @default(0)
+  Study   Study  @relation(fields: [studyId], references: [id])
 }
