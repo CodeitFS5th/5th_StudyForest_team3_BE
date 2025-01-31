@@ -20,4 +20,5 @@ model Study {
   updatedAt   DateTime   @updatedAt
   Habits      Habit[]
   Reactions   Reaction[]
+  DeletedHabit DeletedHabit[]
 }

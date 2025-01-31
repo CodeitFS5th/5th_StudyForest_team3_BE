@@ -10,4 +10,18 @@ model Habit {
   study_id  Int
   createdAt DateTime    @default(now())
   Study     Study       @relation(fields: [study_id], references: [id])
+  DeletedHabit DeletedHabit[]
+}
+
+model DeletedHabit {
+  id        Int         @id @default(autoincrement())
+  habit_id  Int         @unique
+  name      String
+  status    HabitStatus
+  study_id  Int
+  deletedAt DateTime    @default(now())
+
+  ///어떤 공부에서 어떤 습관이 삭제되었는가를 명확하게 하기 위해 둘다 가져옴
+  Habit     Habit       @relation(fields: [habit_id], references: [id])
+  Study     Study       @relation(fields: [study_id], references: [id])
 }
