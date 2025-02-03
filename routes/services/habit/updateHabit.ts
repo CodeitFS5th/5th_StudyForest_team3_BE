@@ -3,24 +3,20 @@ import { RequestHandler } from "express";
 
 const updateHabit: RequestHandler = async (req, res, next) => {
   try {
+    // assert 추가하세요 ^^
+
     const habitId: number = Number(req.params.id);
     const { name, status } = req.body;
 
     // 이름과 상태가 모두 없는 경우 방지
-    if (name === undefined && status === undefined) {
-      res.status(400).send("업데이트할 데이터가 없습니다.");
+    // name 또는 status가 없는 경우 400 에러를 반환합니다.
+    // &&이 아니라 ||로 수정해야 합니다.
+    if (!name || !status) {
+      res
+        .status(400)
+        .send({ message: "습관 생성 필수 요소가 누락되었습니다." });
       return;
     }
-
-    // 상태 값 검증
-    if (status !== undefined && !["DONE", "UNDONE"].includes(status)) {
-      res.status(400).send("유효하지 않은 상태값입니다.");
-      return;
-    }
-
-    const upData: { name?: String; status?: "DONE" | "UNDONE" } = {};
-    if (name !== undefined) upData.name = name;
-    if (status !== undefined) upData.status = status;
 
     // 습관 삭제여부 확인
     const deletedHabit = await prisma.deletedHabit.findFirst({
@@ -30,14 +26,14 @@ const updateHabit: RequestHandler = async (req, res, next) => {
     });
 
     if (deletedHabit) {
-      res.status(403).send("이미 삭제된 습관입니다!");
+      res.status(403).send({ message: "이미 삭제된 습관입니다!" });
       return;
     }
 
     // 습관 업데이트
     const updatedHabit = await prisma.habit.update({
       where: { id: habitId },
-      data: upData,
+      data: req.body,
     });
 
     if (!updatedHabit) {
