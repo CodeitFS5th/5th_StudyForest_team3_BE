@@ -17,22 +17,33 @@ const deleteHabit: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // DeletedHabit 데이블 저장
-    await prisma.deletedHabit.create({
-      data: {
-        habit_id: habit.id,
-        name: habit.name,
-        status: habit.status,
-        study_id: habit.study_id,
-      },
+    const deletedHabit = await prisma.deletedHabit.findFirst({
+      where: { habit_id: habitId },
     });
 
-    // 원본 습관 테이블에서 삭제
-    await prisma.habit.delete({
-      where: { id: habitId },
-    });
+    if (deletedHabit) {
+      res.status(404).send("이미 삭제된 습관입니다!");
+      return;
+    }
 
-    res.status(204).send("요청하신 습관이 삭제 되었습니다!");
+    // 트랜잭션 실행, 오류로 인해 원본데이터만 삭제 방지
+    await prisma.$transaction([
+      // DeletedHabit 데이블 저장
+      prisma.deletedHabit.create({
+        data: {
+          habit_id: habit.id,
+          name: habit.name,
+          status: habit.status,
+          study_id: habit.study_id,
+        },
+      }),
+
+      // 원본 습관 테이블에서 삭제
+      prisma.habit.delete({
+        where: { id: habitId },
+      }),
+    ]);
+    res.status(200).send("요청하신 습관이 삭제 되었습니다!");
   } catch (error) {
     next(error);
   }
