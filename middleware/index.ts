@@ -3,7 +3,7 @@ import { StructError } from "superstruct";
 import { Prisma } from "@prisma/client";
 
 // 오류 처리 미들웨어
-const errorHandler = (
+export const errorHandler = (
   err: any,
   req: Request,
   res: Response,

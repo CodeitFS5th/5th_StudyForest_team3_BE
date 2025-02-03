@@ -1,3 +1,4 @@
+import { equal } from "assert";
 import prisma from "../../prisma";
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
@@ -15,7 +16,9 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
       where: {
         id: studyId,
         deletedAt: {
-          is: null, // null과 undefined 모두 체크
+          equals: null,
+          // DateTime 필드에서는 equals, lt, gt, gte, lte와 같은 연산자를 사용해야 합니다.
+          // undefined 값은 Prisma에서 자동으로 처리되지 않기 때문에, undefined 조건을 포함하는 쿼리는 작성할 수 없습니다.
         },
       },
     });
