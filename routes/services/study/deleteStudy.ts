@@ -17,8 +17,9 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
       where: {
         id: studyId,
         deletedAt: {
-          is: null  // null과 undefined 모두 체크
+          is: null, // null과 undefined 모두 체크
         },
+      },
     });
 
     if (!study) {
