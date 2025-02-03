@@ -1,5 +1,6 @@
 import prisma from "../../prisma";
 import { RequestHandler } from "express";
+import bcrypt from "bcrypt";
 
 interface CustomError extends Error {
   status?: number;
@@ -37,7 +38,9 @@ const getHabitList: RequestHandler = async (req, res, next) => {
     }
 
     // Error: studyPassword가 일치하지 않으면 에러 발생
-    if (study.password !== studyPassword) {
+    const isPasswordValid = await bcrypt.compare(studyPassword, study.password);
+
+    if (!isPasswordValid) {
       const error: CustomError = new Error(
         "스터디 비밀번호가 일치하지 않습니다!"
       );
