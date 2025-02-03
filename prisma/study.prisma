@@ -9,15 +9,30 @@ enum imageType {
 }
 
 model Study {
-  id          Int        @id @default(autoincrement())
+  id          Int              @id @default(autoincrement())
   nick        String
   name        String
   description String
   password    String
   background  imageType
-  point       Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  point       Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
   Habits      Habit[]
   Reactions   Reaction[]
+  DeleteLogs  StudyDeleteLog[]
+
+  @@index([deletedAt])
+}
+
+model StudyDeleteLog {
+  id        Int      @id @default(autoincrement())
+  studyId   Int
+  deletedAt DateTime @default(now()) // 삭제 시간
+  reason    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  study Study @relation(fields: [studyId], references: [id])
 }
