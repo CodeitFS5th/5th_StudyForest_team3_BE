@@ -16,7 +16,9 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
     const study = await prisma.study.findUnique({
       where: {
         id: studyId,
-      },
+        deletedAt: {
+          is: null  // null과 undefined 모두 체크
+        },
     });
 
     if (!study) {
