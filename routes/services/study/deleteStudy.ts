@@ -1,17 +1,15 @@
 import prisma from "../../prisma";
 import { RequestHandler } from "express";
-
-interface CustomError extends Error {
-  status?: number;
-}
+import bcrypt from "bcrypt";
 interface DeleteStudyRequest {
+  studyPassword: string;
   reason?: string;
 }
 
 const deleteStudy: RequestHandler = async (req, res, next) => {
   try {
     const studyId: number = Number(req.params.id); // uuid로 변경 시 타입 변경 필요
-    const { reason } = req.body as DeleteStudyRequest;
+    const { studyPassword, reason } = req.body as DeleteStudyRequest;
 
     const study = await prisma.study.findUnique({
       where: {
@@ -22,24 +20,42 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
       },
     });
 
+    // Error: 삭제할 스터디가 존재하지 않으면 에러 발생
     if (!study) {
-      // 미들웨어 사용을 위해 error 객체를 throw
-      const error: CustomError = new Error(
-        "삭제할 스터디가 존재하지 않습니다!"
-      ); // error 클래스를 정의해두는 것도 좋을 듯!
-      error.status = 404;
-      throw error;
+      res.status(404).send({ message: "삭제할 스터디가 존재하지 않습니다!" });
+      return;
+    }
+
+    // Error: studyPassword를 req.body에서 받지 않으면 에러 발생
+    if (!studyPassword) {
+      res.status(400).send({ message: "스터디 비밀번호가 없습니다!" });
+      return;
+    }
+
+    // Error: studyPassword가 일치하지 않으면 에러 발생
+    const isPasswordValid = await bcrypt.compare(studyPassword, study.password);
+
+    if (!isPasswordValid) {
+      res.status(401).send({ message: "스터디 비밀번호가 일치하지 않습니다!" });
+      return;
     }
 
     const now = new Date();
 
-    await prisma.$transaction([
+    const [updatedStudy, createdDeleteLog] = await prisma.$transaction([
       prisma.study.update({
         where: {
           id: studyId,
         },
         data: {
           deletedAt: now,
+        },
+        select: {
+          id: true,
+          nick: true,
+          name: true,
+          description: true,
+          deletedAt: true,
         },
       }),
       prisma.studyDeleteLog.create({
@@ -51,7 +67,10 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
       }),
     ]);
 
-    res.status(200).send("스터디가 삭제되었습니다!");
+    res.status(200).send({
+      message: "스터디가 삭제되었습니다!",
+      data: { ...updatedStudy, ...(reason && { reason }) },
+    });
   } catch (error) {
     next(error);
   }
