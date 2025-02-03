@@ -2,10 +2,6 @@ import prisma from "../../prisma";
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 
-interface CustomError extends Error {
-  status?: number;
-}
-
 interface GetHabitListRequest {
   studyId: number; // uuid로 변경 시 타입 변경 필요
   studyPassword: string;
@@ -17,11 +13,10 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     // Error: studyId, studyPassword 둘 중 하나라도 없으면 에러 발생
     if (!studyId || !studyPassword) {
-      const error: CustomError = new Error(
-        "studyId 또는 studyPassword가 없습니다!"
-      );
-      error.status = 400;
-      throw error;
+      res
+        .status(400)
+        .send({ message: "studyId 또는 studyPassword가 없습니다!" });
+      return;
     }
 
     const study = await prisma.study.findUnique({
@@ -32,20 +27,16 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     // Error: studyID에 해당하는 스터디가 없으면 에러 발생
     if (!study) {
-      const error: CustomError = new Error("스터디가 존재하지 않습니다!");
-      error.status = 404;
-      throw error;
+      res.status(404).send({ message: "스터디가 존재하지 않습니다!" });
+      return;
     }
 
     // Error: studyPassword가 일치하지 않으면 에러 발생
     const isPasswordValid = await bcrypt.compare(studyPassword, study.password);
 
     if (!isPasswordValid) {
-      const error: CustomError = new Error(
-        "스터디 비밀번호가 일치하지 않습니다!"
-      );
-      error.status = 401;
-      throw error;
+      res.status(401).send({ message: "스터디 비밀번호가 일치하지 않습니다!" });
+      return;
     }
 
     const habitList = await prisma.habit.findMany({
@@ -56,9 +47,8 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     // Error: 습관이 존재하지 않으면 에러 발생
     if (habitList.length === 0) {
-      const error: CustomError = new Error("습관이 존재하지 않습니다!");
-      error.status = 404;
-      throw error;
+      res.status(404).send({ message: "습관이 존재하지 않습니다!" });
+      return;
     }
 
     res

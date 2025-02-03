@@ -1,10 +1,6 @@
 import prisma from "../../prisma";
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
-
-interface CustomError extends Error {
-  status?: number;
-}
 interface DeleteStudyRequest {
   studyPassword: string;
   reason?: string;
@@ -26,29 +22,22 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
 
     // Error: 삭제할 스터디가 존재하지 않으면 에러 발생
     if (!study) {
-      const error: CustomError = new Error(
-        "삭제할 스터디가 존재하지 않습니다!"
-      );
-      error.status = 404;
-      throw error;
+      res.status(404).send({ message: "삭제할 스터디가 존재하지 않습니다!" });
+      return;
     }
 
     // Error: studyPassword를 req.body에서 받지 않으면 에러 발생
     if (!studyPassword) {
-      const error: CustomError = new Error("스터디 비밀번호가 없습니다!");
-      error.status = 400;
-      throw error;
+      res.status(400).send({ message: "스터디 비밀번호가 없습니다!" });
+      return;
     }
 
     // Error: studyPassword가 일치하지 않으면 에러 발생
     const isPasswordValid = await bcrypt.compare(studyPassword, study.password);
 
     if (!isPasswordValid) {
-      const error: CustomError = new Error(
-        "스터디 비밀번호가 일치하지 않습니다!"
-      );
-      error.status = 401;
-      throw error;
+      res.status(401).send({ message: "스터디 비밀번호가 일치하지 않습니다!" });
+      return;
     }
 
     const now = new Date();
