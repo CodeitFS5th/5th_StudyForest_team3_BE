@@ -1,11 +1,15 @@
-import { ErrorRequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import { StructError } from "superstruct";
 import { Prisma } from "@prisma/client";
 
 // 오류 처리 미들웨어
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const errorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   // Prisma 오류 처리
-  // npx prisma generate 명령어로 생성된 PrismaClientKnownRequestError를 사용 // DB 연결하면 오류 사라질 듯?
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     // Prisma의 구체적인 오류 코드를 체크할 수 있음
     if (err.code === "P2002") {
