@@ -18,9 +18,12 @@ model Study {
   point       Int              @default(0)
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
   Habits      Habit[]
   Reactions   Reaction[]
   DeleteLogs  StudyDeleteLog[]
+
+  @@index([deletedAt])
 }
 
 model StudyDeleteLog {
@@ -29,5 +32,5 @@ model StudyDeleteLog {
   deletedAt DateTime @default(now()) // 삭제 시간
   reason    String?
 
-  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id])
 }

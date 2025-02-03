@@ -5,11 +5,13 @@ interface CustomError extends Error {
   status?: number;
 }
 
+interface GetHabitListRequest {
+  studyId: number; // uuid로 변경 시 타입 변경 필요
+}
+
 const getHabitList: RequestHandler = async (req, res, next) => {
   try {
-    const { studyId }: { studyId: number } = {
-      studyId: Number(req.body.studyId),
-    };
+    const { studyId } = req.body as GetHabitListRequest;
 
     const habitList = await prisma.habit.findMany({
       where: {

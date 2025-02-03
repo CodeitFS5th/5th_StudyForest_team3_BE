@@ -4,10 +4,14 @@ import { RequestHandler } from "express";
 interface CustomError extends Error {
   status?: number;
 }
+interface DeleteStudyRequest {
+  reason?: string;
+}
 
 const deleteStudy: RequestHandler = async (req, res, next) => {
   try {
-    const studyId: number = Number(req.params.id);
+    const studyId: number = Number(req.params.id); // uuid로 변경 시 타입 변경 필요
+    const { reason } = req.body as DeleteStudyRequest;
 
     const study = await prisma.study.findUnique({
       where: {
@@ -39,6 +43,7 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
         data: {
           studyId,
           deletedAt: now,
+          ...(reason && { reason }),
         },
       }),
     ]);
