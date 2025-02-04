@@ -1,0 +1,27 @@
+### Variables
+@baseUrl = http://localhost:3000
+@studyId = 19
+@habitId = 50
+
+### 습관 생성
+POST {{baseUrl}}/habit
+Content-Type: application/json
+
+{
+    "name": "매일 알고리즘 1문제 풀기",
+    "studyId": {{studyId}}
+}
+
+### 습관 목록 조회
+GET {{baseUrl}}/habit}
+
+### 습관 상태 업데이트 (DONE/UNDONE)
+PUT {{baseUrl}}/habit/{{habitId}}
+Content-Type: application/json
+
+{
+    "status": "DONE"
+}
+
+### 습관 삭제
+DELETE {{baseUrl}}/habit/{{habitId}}

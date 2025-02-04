@@ -1,0 +1,11 @@
+### Variables
+@baseUrl = http://localhost:3000
+@studyId = 19
+
+### 리액션 생성 (스터디에 리액션 추가)
+POST {{baseUrl}}/reaction
+Content-Type: application/json
+
+{
+    "study_id": {{studyId}}
+}

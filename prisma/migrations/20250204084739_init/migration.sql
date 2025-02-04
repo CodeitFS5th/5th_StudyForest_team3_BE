@@ -2,7 +2,7 @@
 CREATE TYPE "HabitStatus" AS ENUM ('DONE', 'UNDONE');
 
 -- CreateEnum
-CREATE TYPE "imageType" AS ENUM ('GREEN', 'YELLOW', 'BLUE', 'RED', 'PHOTO_1', 'PHOTO_2', 'PHOTO_3');
+CREATE TYPE "ImageType" AS ENUM ('GREEN', 'YELLOW', 'BLUE', 'RED', 'PHOTO_1', 'PHOTO_2', 'PHOTO_3');
 
 -- CreateTable
 CREATE TABLE "Habit" (
@@ -20,7 +20,7 @@ CREATE TABLE "DeletedHabit" (
     "id" SERIAL NOT NULL,
     "habit_id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
-    "status" "HabitStatus" NOT NULL,
+    "status" "HabitStatus" NOT NULL DEFAULT 'UNDONE',
     "study_id" INTEGER NOT NULL,
     "deletedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -44,7 +44,7 @@ CREATE TABLE "Study" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "background" "imageType" NOT NULL,
+    "background" "ImageType" NOT NULL,
     "point" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
