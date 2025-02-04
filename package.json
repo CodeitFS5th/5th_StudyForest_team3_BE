@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app",
+    "start": "node dist/app.js",
     "dev": "nodemon --watch \"*.ts\" --exec \"ts-node\" app.ts",
     "postinstall": "prisma generate",
-    "build": "prisma generate && <actual-build-command>",
+    "build": "tsc",
     "seed": "ts-node prisma/seed.ts"
   },
   "author": "3team",
