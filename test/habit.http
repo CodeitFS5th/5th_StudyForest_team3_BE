@@ -16,12 +16,13 @@ Content-Type: application/json
 GET {{baseUrl}}/habit}
 
 ### 습관 상태 업데이트 (DONE/UNDONE)
-PUT {{baseUrl}}/habit/{{habitId}}
+PATCH  {{baseUrl}}/habit/{{habitId}}
 Content-Type: application/json
 
 {
+    "name": "매일 알고리즘 1문제 풀기",
     "status": "DONE"
 }
 
-### 습관 삭제
+### 습관 삭
 DELETE {{baseUrl}}/habit/{{habitId}}
