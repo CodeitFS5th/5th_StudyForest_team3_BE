@@ -16,7 +16,7 @@ model DeletedHabit {
   id        Int         @id @default(autoincrement())
   habit_id  Int
   name      String
-  status    HabitStatus
+  status    HabitStatus @default(UNDONE)
   study_id  Int
   deletedAt DateTime    @default(now())
 

@@ -10,3 +10,5 @@ app.use("/", router); // 라우터 세팅
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);
 }); // 에러 처리
+
+export default app;
