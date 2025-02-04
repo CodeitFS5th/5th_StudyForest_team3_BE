@@ -5,6 +5,10 @@ import habitRouter from "./controllers/habit";
 
 const router = express.Router();
 
+router.get("/", (req, res) => {
+  res.send("Hello from the Express Router!");
+});
+
 router.use("/study", studyRouter);
 router.use("/reaction", reactionRouter);
 router.use("/habit", habitRouter);

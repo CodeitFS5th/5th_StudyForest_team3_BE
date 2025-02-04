@@ -15,7 +15,9 @@ const createStudy: RequestHandler = async (req, res, next) => {
       req.body;
 
     if (!nick || !name || !description || !password || !background) {
-      res.status(400).send("스터디 생성 필수 요소가 누락되었습니다.");
+      res
+        .status(400)
+        .send({ message: "스터디 생성 필수 요소가 누락되었습니다." });
       return;
     }
 
