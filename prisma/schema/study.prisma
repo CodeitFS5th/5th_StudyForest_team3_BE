@@ -1,4 +1,4 @@
-enum imageType {
+enum ImageType {
   GREEN
   YELLOW
   BLUE
@@ -14,7 +14,7 @@ model Study {
   name        String
   description String
   password    String
-  background  imageType
+  background  ImageType
   point       Int              @default(0)
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt

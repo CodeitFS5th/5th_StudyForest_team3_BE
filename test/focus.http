@@ -1,0 +1,12 @@
+### Variables
+@baseUrl = http://localhost:3000
+@studyId = 19
+
+### 집중 포인트 추가
+POST {{baseUrl}}/focus
+Content-Type: application/json
+
+{
+    "study_id": {{studyId}},
+    "point": 1
+}

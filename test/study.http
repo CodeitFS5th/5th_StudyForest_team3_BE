@@ -1,0 +1,42 @@
+### Variables
+@baseUrl = http://localhost:3000
+@studyId = 19
+
+### 스터디 생성
+POST {{baseUrl}}/study
+Content-Type: application/json
+
+{
+    "nick": "테스트닉네임",
+    "name": "테스트 스터디",
+    "description": "테스트 스터디 설명입니다.",
+    "password": "testpassword123",
+    "background": "GREEN"
+}
+
+### 스터디 목록 조회
+GET {{baseUrl}}/study/list
+
+### 특정 스터디 조회
+GET {{baseUrl}}/study/{{studyId}}
+
+### 스터디 정보 수정
+PUT {{baseUrl}}/study/{{studyId}}
+Content-Type: application/json
+
+{
+    "nick": "수정된닉네임",
+    "name": "수정된 스터디명",
+    "description": "수정된 스터디 설명입니다.",
+    "password": "newpassword123",
+    "background": "BLUE"
+}
+
+### 스터디 삭제
+DELETE {{baseUrl}}/study/{{studyId}}
+Content-Type: application/json
+
+{
+    "password": "testpassword123",
+    "reason": "스터디를 더 이상 진행하지 않아 삭제합니다."
+}
