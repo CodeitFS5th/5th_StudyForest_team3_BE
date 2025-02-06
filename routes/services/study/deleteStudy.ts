@@ -15,7 +15,7 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
     const study = await prisma.study.findUnique({
       where: {
         id: studyId,
-        deletedAt: {
+        deleted_at: {
           equals: null,
           // DateTime 필드에서는 equals, lt, gt, gte, lte와 같은 연산자를 사용해야 합니다.
           // undefined 값은 Prisma에서 자동으로 처리되지 않기 때문에, undefined 조건을 포함하는 쿼리는 작성할 수 없습니다.
@@ -51,20 +51,20 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
           id: studyId,
         },
         data: {
-          deletedAt: now,
+          deleted_at: now,
         },
         select: {
           id: true,
           nick: true,
           name: true,
           description: true,
-          deletedAt: true,
+          deleted_at: true,
         },
       }),
       prisma.studyDeleteLog.create({
         data: {
-          studyId,
-          deletedAt: now,
+          study_id: studyId,
+          deleted_at: now,
           ...(reason && { reason }),
         },
       }),

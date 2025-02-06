@@ -33,6 +33,9 @@ async function main() {
         { emoji: "👍", count: 5 },
         { emoji: "🔥", count: 3 },
         { emoji: "💪", count: 7 },
+        { emoji: "🎉", count: 4 },
+        { emoji: "❤️", count: 6 },
+        { emoji: "🌟", count: 2 },
       ],
     },
     {
@@ -51,6 +54,9 @@ async function main() {
         { emoji: "👍", count: 8 },
         { emoji: "🎯", count: 4 },
         { emoji: "📚", count: 6 },
+        { emoji: "🧠", count: 5 },
+        { emoji: "💡", count: 7 },
+        { emoji: "✨", count: 3 },
       ],
     },
     {
@@ -69,6 +75,9 @@ async function main() {
         { emoji: "✨", count: 4 },
         { emoji: "💯", count: 2 },
         { emoji: "🌟", count: 5 },
+        { emoji: "📝", count: 6 },
+        { emoji: "🎓", count: 3 },
+        { emoji: "🔤", count: 4 },
       ],
     },
     {
@@ -87,6 +96,9 @@ async function main() {
         { emoji: "💪", count: 10 },
         { emoji: "🔥", count: 6 },
         { emoji: "👍", count: 8 },
+        { emoji: "🏃", count: 5 },
+        { emoji: "🎽", count: 4 },
+        { emoji: "⚡", count: 7 },
       ],
     },
     {
@@ -105,6 +117,9 @@ async function main() {
         { emoji: "📚", count: 7 },
         { emoji: "✨", count: 3 },
         { emoji: "👍", count: 5 },
+        { emoji: "🤓", count: 4 },
+        { emoji: "📖", count: 6 },
+        { emoji: "💭", count: 2 },
       ],
     },
     {
@@ -123,6 +138,9 @@ async function main() {
         { emoji: "🍳", count: 6 },
         { emoji: "👍", count: 4 },
         { emoji: "👏", count: 5 },
+        { emoji: "🔪", count: 3 },
+        { emoji: "👨‍🍳", count: 7 },
+        { emoji: "🍽️", count: 4 },
       ],
     },
     {
@@ -141,6 +159,9 @@ async function main() {
         { emoji: "🌍", count: 9 },
         { emoji: "✈️", count: 5 },
         { emoji: "📅", count: 6 },
+        { emoji: "🎒", count: 4 },
+        { emoji: "🗺️", count: 7 },
+        { emoji: "🌴", count: 3 },
       ],
     },
   ];
@@ -156,13 +177,13 @@ async function main() {
         password: await bcrypt.hash(study.password, 10),
         background: study.background as ImageType,
         point: study.point,
-        Habits: {
+        habits: {
           create: study.habits.map((habit) => ({
             name: habit.name,
             status: habit.status as HabitStatus,
           })),
         },
-        Reactions: {
+        reactions: {
           create: study.reactions.map((reaction) => ({
             emoji: reaction.emoji,
             count: reaction.count,
@@ -184,7 +205,7 @@ async function main() {
     // 스터디 삭제 로그 생성 (테스트용)
     const studyDeleteLog = await prisma.studyDeleteLog.create({
       data: {
-        studyId: createdStudy.id,
+        study_id: createdStudy.id,
         reason: "테스트를 위한 삭제 로그",
       },
     });

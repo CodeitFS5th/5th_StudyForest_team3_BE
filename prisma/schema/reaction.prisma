@@ -3,5 +3,5 @@ model Reaction {
   emoji    String
   count    Int    @default(0)
   study_id Int
-  Study    Study  @relation(fields: [study_id], references: [id])
+  study    Study  @relation(fields: [study_id], references: [id])
 }
