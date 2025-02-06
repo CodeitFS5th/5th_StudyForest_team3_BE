@@ -14,8 +14,32 @@ Content-Type: application/json
     "background": "GREEN"
 }
 
-### 스터디 목록 조회
-GET {{baseUrl}}/study/list
+### 스터디 목록 조회 (기본)
+GET {{baseUrl}}/study
+
+### 스터디 목록 조회 - 페이지네이션
+GET {{baseUrl}}/study?page=1&limit=5
+
+### 스터디 목록 조회 - 검색
+GET {{baseUrl}}/study?search=테스트
+
+### 스터디 목록 조회 - 포인트 정렬
+GET {{baseUrl}}/study?sort=point_desc
+
+###
+GET {{baseUrl}}/study?sort=point_asc
+
+### 스터디 목록 조회 - 날짜 정렬
+GET {{baseUrl}}/study?sort=date_desc
+
+###
+GET {{baseUrl}}/study?sort=date_asc
+
+### 스터디 목록 조회 - 복합 조건
+GET {{baseUrl}}/study?search=테스트&sort=point_desc&page=1&limit=20
+
+###
+GET {{baseUrl}}/study?search=스터디&sort=date_desc&page=2&limit=15
 
 ### 특정 스터디 조회
 GET {{baseUrl}}/study/{{studyId}}
