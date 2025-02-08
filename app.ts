@@ -11,8 +11,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);
 }); // 에러 처리
 
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
+app.listen(8000, () => {
+  console.log("Server is running on http://localhost:8000");
 });
 
 export default app;

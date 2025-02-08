@@ -195,17 +195,17 @@ async function main() {
     // 삭제된 습관 데이터 생성 (테스트용)
     const deletedHabit = await prisma.deletedHabit.create({
       data: {
-        habit_id: 1,
+        habitId: 1,
         name: "삭제된 습관",
         status: "UNDONE",
-        study_id: createdStudy.id,
+        studyId: createdStudy.id,
       },
     });
 
     // 스터디 삭제 로그 생성 (테스트용)
     const studyDeleteLog = await prisma.studyDeleteLog.create({
       data: {
-        study_id: createdStudy.id,
+        studyId: createdStudy.id,
         reason: "테스트를 위한 삭제 로그",
       },
     });

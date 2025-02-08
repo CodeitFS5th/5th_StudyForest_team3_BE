@@ -12,7 +12,7 @@ const createHabit: RequestHandler = async (req, res, next) => {
 
     const newHabit = await prisma.habit.create({
       data: {
-        study_id: studyId,
+        studyId: studyId,
         name,
         status: "UNDONE", // 기본값 설정
       },

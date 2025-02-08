@@ -14,7 +14,7 @@ const getStudyList: RequestHandler = async (req, res, next) => {
 
     // 검색 조건 설정
     const whereCondition: any = {
-      deleted_at: null,
+      deletedAt: null,
     };
 
     if (search) {
@@ -34,11 +34,11 @@ const getStudyList: RequestHandler = async (req, res, next) => {
         orderByCondition.point = "desc";
         break;
       case "date_asc":
-        orderByCondition.created_at = "asc";
+        orderByCondition.createdAt = "asc";
         break;
       case "date_desc":
       default:
-        orderByCondition.created_at = "desc";
+        orderByCondition.createdAt = "desc";
         break;
     }
 
@@ -52,7 +52,7 @@ const getStudyList: RequestHandler = async (req, res, next) => {
         description: true,
         background: true,
         point: true,
-        created_at: true,
+        createdAt: true,
         reactions: {
           select: {
             emoji: true,
@@ -71,8 +71,8 @@ const getStudyList: RequestHandler = async (req, res, next) => {
     });
 
     res.json({
-        studies,
-        totalCount: totalStudies
+      studies,
+      totalCount: totalStudies,
     });
   } catch (error) {
     next(error);
