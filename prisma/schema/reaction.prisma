@@ -1,7 +1,7 @@
 model Reaction {
-  id       Int    @id @default(autoincrement())
-  emoji    String
-  count    Int    @default(0)
-  study_id Int
-  study    Study  @relation(fields: [study_id], references: [id])
+  id      Int    @id @default(autoincrement())
+  emoji   String
+  count   Int    @default(0)
+  studyId Int
+  study   Study  @relation(fields: [studyId], references: [id])
 }

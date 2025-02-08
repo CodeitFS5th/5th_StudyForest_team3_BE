@@ -16,23 +16,23 @@ model Study {
   password    String
   background  ImageType
   point       Int              @default(0)
-  created_at  DateTime         @default(now())
-  updated_at  DateTime         @updatedAt
-  deleted_at  DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
   habits      Habit[]
   reactions   Reaction[]
-  delete_logs StudyDeleteLog[]
+  deleteLogs  StudyDeleteLog[]
 
-  @@index([deleted_at])
+  @@index([deletedAt])
 }
 
 model StudyDeleteLog {
-  id         Int      @id @default(autoincrement())
-  study_id   Int
-  deleted_at DateTime @default(now()) // 삭제 시간
-  reason     String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  studyId   Int
+  deletedAt DateTime @default(now()) // 삭제 시간
+  reason    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  study Study @relation(fields: [study_id], references: [id])
+  study Study @relation(fields: [studyId], references: [id])
 }

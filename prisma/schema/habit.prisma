@@ -4,22 +4,22 @@ enum HabitStatus {
 }
 
 model Habit {
-  id         Int         @id @default(autoincrement())
-  name       String
-  status     HabitStatus @default(UNDONE)
-  study_id   Int
-  created_at DateTime    @default(now())
-  study      Study       @relation(fields: [study_id], references: [id])
+  id        Int         @id @default(autoincrement())
+  name      String
+  status    HabitStatus @default(UNDONE)
+  studyId   Int
+  createdAt DateTime    @default(now())
+  study     Study       @relation(fields: [studyId], references: [id])
 }
 
 model DeletedHabit {
   id        Int         @id @default(autoincrement())
-  habit_id  Int
+  habitId   Int
   name      String
   status    HabitStatus @default(UNDONE)
-  study_id  Int
+  studyId   Int
   deletedAt DateTime    @default(now())
 
   ///어떤 공부에서 어떤 습관이 삭제되었는가를 명확하게 하기 위해 둘다 가져옴
-  @@index([habit_id])
+  @@index([habitId])
 }
