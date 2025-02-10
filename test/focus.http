@@ -7,6 +7,6 @@ POST {{baseUrl}}/focus
 Content-Type: application/json
 
 {
-    "study_id": {{studyId}},
+    "studyId": {{studyId}},
     "point": 1
 }

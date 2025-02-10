@@ -18,7 +18,7 @@ const deleteHabit: RequestHandler = async (req, res, next) => {
     }
 
     const deletedHabit = await prisma.deletedHabit.findFirst({
-      where: { habit_id: habitId },
+      where: { habitId },
     });
 
     if (deletedHabit) {
@@ -31,10 +31,10 @@ const deleteHabit: RequestHandler = async (req, res, next) => {
       // DeletedHabit 데이블 저장
       prisma.deletedHabit.create({
         data: {
-          habit_id: habit.id,
+          habitId: habit.id,
           name: habit.name,
           status: habit.status,
-          study_id: habit.study_id,
+          studyId: habit.studyId,
         },
       }),
 

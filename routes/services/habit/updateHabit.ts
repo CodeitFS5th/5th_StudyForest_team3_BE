@@ -21,7 +21,7 @@ const updateHabit: RequestHandler = async (req, res, next) => {
     // 습관 삭제여부 확인
     const deletedHabit = await prisma.deletedHabit.findFirst({
       where: {
-        habit_id: habitId,
+        habitId,
       },
     });
 

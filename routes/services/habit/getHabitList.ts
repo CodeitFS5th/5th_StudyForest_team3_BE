@@ -41,7 +41,7 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     const habitList = await prisma.habit.findMany({
       where: {
-        study_id: studyId,
+        studyId: studyId,
       },
     });
 
