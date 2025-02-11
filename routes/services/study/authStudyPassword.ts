@@ -5,7 +5,8 @@ import bcrypt from "bcrypt";
 const authStudyPassword: RequestHandler = async (req, res, next) => {
   // 스터디 비밀번호 인증
   try {
-    const { studyId, password } = req.body;
+    const studyId = Number(req.params.id);
+    const { password } = req.body;
 
     if (!password) {
       res.status(400).send({ message: "비밀번호가 필요합니다." });
@@ -27,7 +28,7 @@ const authStudyPassword: RequestHandler = async (req, res, next) => {
     const isPasswordValid = await bcrypt.compare(password, study.password);
 
     if (isPasswordValid) {
-      res.status(200).send({ message: "비밀번호가 일치합니다." });
+      res.status(200).send({ message: "비밀번호가 일치합니다.", data: true });
     } else {
       res.status(401).send({ message: "비밀번호가 일치하지 않습니다." });
     }

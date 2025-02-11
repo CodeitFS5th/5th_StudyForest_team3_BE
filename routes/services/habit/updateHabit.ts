@@ -8,9 +8,6 @@ const updateHabit: RequestHandler = async (req, res, next) => {
     const habitId: number = Number(req.params.id);
     const { name, status } = req.body;
 
-    // 이름과 상태가 모두 없는 경우 방지
-    // name 또는 status가 없는 경우 400 에러를 반환합니다.
-    // &&이 아니라 ||로 수정해야 합니다.
     if (!name || !status) {
       res
         .status(400)
