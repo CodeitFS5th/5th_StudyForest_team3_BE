@@ -3,7 +3,8 @@ import { RequestHandler } from "express";
 
 const createHabit: RequestHandler = async (req, res, next) => {
   try {
-    const { studyId, name } = req.body;
+    const studyId = Number(req.params.id);
+    const { name } = req.body;
 
     if (!studyId || !name) {
       res.status(400).json({ message: "studyId와 name이 필요합니다." });

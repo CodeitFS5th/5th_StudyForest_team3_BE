@@ -6,6 +6,8 @@ import createStudy from "../services/study/createStudy";
 import updateStudy from "../services/study/updateStudy";
 import deleteStudy from "../services/study/deleteStudy";
 import authStudyPassword from "../services/study/authStudyPassword";
+import getHabitList from "../services/habit/getHabitList";
+import createHabit from "../services/habit/createHabit";
 
 const router = express.Router();
 
@@ -18,5 +20,8 @@ router.delete("/:id", deleteStudy);
 router.post("/focus", addFocusPoint); // /study/focus
 
 router.post("/:id/auth", authStudyPassword); // /study/:id/auth
+
+router.get("/:id/habit", getHabitList); // /study/:id/habit
+router.post("/:id/habit", createHabit);
 
 export default router;
