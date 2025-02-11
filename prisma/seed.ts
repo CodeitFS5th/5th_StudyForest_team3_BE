@@ -192,6 +192,28 @@ async function main() {
       },
     });
 
+    // 각 스터디의 습관들에 대한 로그 생성
+    const habits = await prisma.habit.findMany({
+      where: { studyId: createdStudy.id },
+    });
+
+    for (const habit of habits) {
+      // 각 습관당 3-7개의 랜덤한 로그 생성
+      const logCount = Math.floor(Math.random() * 5) + 3;
+
+      for (let i = 0; i < logCount; i++) {
+        await prisma.habitLog.create({
+          data: {
+            habitId: habit.id,
+            // 최근 7일 이내의 랜덤한 날짜 생성
+            createdAt: new Date(
+              Date.now() - Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000
+            ),
+          },
+        });
+      }
+    }
+
     // 삭제된 습관 데이터 생성 (테스트용)
     const deletedHabit = await prisma.deletedHabit.create({
       data: {

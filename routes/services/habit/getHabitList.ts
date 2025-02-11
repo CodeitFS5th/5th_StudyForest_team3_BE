@@ -32,6 +32,13 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       where: {
         studyId,
       },
+      include: {
+        logs: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
     });
 
     // Error: 습관이 존재하지 않으면 에러 발생

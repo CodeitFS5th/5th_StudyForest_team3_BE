@@ -10,6 +10,7 @@ model Habit {
   studyId   Int
   createdAt DateTime    @default(now())
   study     Study       @relation(fields: [studyId], references: [id])
+  logs      HabitLog[]
 }
 
 model DeletedHabit {
@@ -22,4 +23,11 @@ model DeletedHabit {
 
   ///어떤 공부에서 어떤 습관이 삭제되었는가를 명확하게 하기 위해 둘다 가져옴
   @@index([habitId])
+}
+
+model HabitLog {
+  id        Int      @id @default(autoincrement())
+  habitId   Int
+  habit     Habit    @relation(fields: [habitId], references: [id])
+  createdAt DateTime @default(now())
 }
