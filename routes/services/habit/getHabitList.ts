@@ -1,6 +1,5 @@
 import prisma from "../../prisma";
 import { RequestHandler } from "express";
-import bcrypt from "bcrypt";
 
 interface GetHabitListRequest {
   studyId: number; // uuid로 변경 시 타입 변경 필요
@@ -18,7 +17,7 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     const study = await prisma.study.findUnique({
       where: {
-        id: Number(studyId),
+        id: studyId,
       },
     });
 
@@ -47,9 +46,7 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    res
-      .status(200)
-      .send({ message: "습관 목록 조회 결과입니다!", data: habitList });
+    res.status(200).send(habitList); // habitList만 전달 메시지 불필요
   } catch (error) {
     next(error);
   }
