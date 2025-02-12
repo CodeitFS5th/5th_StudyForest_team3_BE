@@ -30,7 +30,6 @@ model StudyDeleteLog {
   id        Int      @id @default(autoincrement())
   studyId   Int
   deletedAt DateTime @default(now()) // 삭제 시간
-  reason    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
