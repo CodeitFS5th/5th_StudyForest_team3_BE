@@ -1,7 +1,7 @@
 ### Variables
 @baseUrl = http://localhost:8000
-@studyId = 14
-@habitId = 42
+@studyId = 8
+@habitId = 21
 
 ### 습관 생성
 POST {{baseUrl}}/habit
@@ -24,8 +24,47 @@ Content-Type: application/json
     "status": "DONE"
 }
 
-### 습관 삭
+### 습관 삭제
 DELETE {{baseUrl}}/habit/{{habitId}}
 
 ### 습관 로그
 POST {{baseUrl}}/habit/{{habitId}}/log/toggle
+
+
+### 습관 여러개 업데이트
+# PATCH {{baseUrl}}/habit/
+# Content-Type: application/json
+
+# [
+#      {
+#         "id": 1,
+#         "title": "매일 알고리즘 1문제 풀기"
+#      },
+#      {
+#         "id": 2,
+#         "title": "매일 알고리즘 1문제 풀기"
+#      },
+#      {
+#         "id": null,
+#         "title": "매일 알고리즘 1문제 풀기"
+#      },
+#      {
+#         "id": 4,
+#         "title": "매일 알고리즘 1문제 풀기"
+#      }
+# ]
+
+###
+PATCH {{baseUrl}}/study/{{studyId}}/habit/
+Content-Type: application/json
+
+[
+    {
+        "id": null,
+        "name": "매일 알고리즘 1문제 풀기"
+    },
+    {
+        "id": 22,
+        "name": "백준 골드 문제 풀기"
+    }
+]

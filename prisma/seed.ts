@@ -8,6 +8,7 @@ async function main() {
 
   // 기존 데이터 삭제
   await prisma.deletedHabit.deleteMany();
+  await prisma.habitLog.deleteMany();
   await prisma.habit.deleteMany();
   await prisma.reaction.deleteMany();
   await prisma.studyDeleteLog.deleteMany();
@@ -228,7 +229,7 @@ async function main() {
     const studyDeleteLog = await prisma.studyDeleteLog.create({
       data: {
         studyId: createdStudy.id,
-        reason: "테스트를 위한 삭제 로그",
+        // reason: "테스트를 위한 삭제 로그",
       },
     });
 

@@ -23,6 +23,7 @@ const deleteStudy: RequestHandler = async (req, res, next) => {
     const now = new Date();
 
     const [updatedStudy, createdDeleteLog] = await prisma.$transaction([
+      
       prisma.study.update({
         where: {
           id: studyId,
