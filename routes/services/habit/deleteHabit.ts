@@ -28,6 +28,13 @@ const deleteHabit: RequestHandler = async (req, res, next) => {
 
     // 트랜잭션 실행, 오류로 인해 원본데이터만 삭제 방지
     await prisma.$transaction([
+      // 습관 기록 먼저 삭제
+      prisma.habitLog.deleteMany({
+        where: {
+          habitId: habitId,
+        },
+      }),
+
       // DeletedHabit 데이블 저장
       prisma.deletedHabit.create({
         data: {

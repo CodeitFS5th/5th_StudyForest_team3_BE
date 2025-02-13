@@ -8,6 +8,7 @@ import deleteStudy from "../services/study/deleteStudy";
 import authStudyPassword from "../services/study/authStudyPassword";
 import getHabitList from "../services/habit/getHabitList";
 import createHabit from "../services/habit/createHabit";
+import updateHabits from "../services/habit/updateHabits";
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router.post("/:id/auth", authStudyPassword); // /study/:id/auth
 
 router.get("/:id/habit", getHabitList); // /study/:id/habit
 router.post("/:id/habit", createHabit);
+router.patch("/:id/habit", updateHabits);
 
 export default router;
