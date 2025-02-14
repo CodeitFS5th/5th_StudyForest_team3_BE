@@ -1,45 +1,45 @@
 import { RequestHandler } from "express";
 import { PrismaClient } from "@prisma/client";
 
+type Emoji = string;
+type Reaction = Record<Emoji, number>;
+
 const prisma = new PrismaClient();
 
-export const createReaction: RequestHandler = async (req, res, next) => {
+const createReaction: RequestHandler = async (req, res, next) => {
   try {
-    const { studyId, emoji } = req.body;
+    const studyId = Number(req.params.id);
+    const emoji = req.body.emoji.trim() as Emoji;
 
     if (!studyId || !emoji) {
       res.status(400).json({ message: "studyId와 emoji가 필요합니다." });
       return;
     }
 
-    // 같은 study_id + emoji 조합이 있는지 확인
-    const existingReaction = await prisma.reaction.findFirst({
-      where: { studyId, emoji },
+    const study = await prisma.study.findUnique({
+      where: { id: studyId },
+      select: { reactions: true },
     });
 
-    let updatedReaction;
-    if (existingReaction) {
-      // 기존 반응이 있으면 count 증가
-      updatedReaction = await prisma.reaction.update({
-        where: { id: existingReaction.id },
-        data: { count: { increment: 1 } },
-      });
-    } else {
-      // 새로운 반응 추가
-      updatedReaction = await prisma.reaction.create({
-        data: {
-          studyId,
-          emoji,
-          count: 1,
-        },
-      });
+    if (!study) {
+      res.status(404).json({ message: "해당 스터디를 찾을 수 없습니다." });
+      return;
     }
 
-    res.status(201).json({
-      message: "응원 이모지가 추가되었습니다.",
-      reaction: updatedReaction,
+    const reactions: Reaction = (study.reactions as Reaction) ?? {};
+
+    // 이모지가 이미 있으면 개수 증가, 없으면 1로 설정
+    reactions[emoji] = (reactions[emoji] || 0) + 1;
+
+    await prisma.study.update({
+      where: { id: studyId },
+      data: { reactions },
     });
+
+    res.status(201).send(reactions);
   } catch (error) {
     next(error);
   }
 };
+
+export default createReaction;

@@ -30,6 +30,7 @@ const createStudy: RequestHandler = async (req, res, next) => {
         description,
         password: hashedPassword,
         background,
+        reactions: {},
       },
     });
 

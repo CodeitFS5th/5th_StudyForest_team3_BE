@@ -53,12 +53,7 @@ const getStudyList: RequestHandler = async (req, res, next) => {
         background: true,
         point: true,
         createdAt: true,
-        reactions: {
-          select: {
-            emoji: true,
-            count: true,
-          },
-        },
+        reactions: true,
       },
       orderBy: orderByCondition,
       skip,

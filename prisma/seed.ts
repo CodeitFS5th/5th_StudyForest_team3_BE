@@ -10,7 +10,6 @@ async function main() {
   await prisma.deletedHabit.deleteMany();
   await prisma.habitLog.deleteMany();
   await prisma.habit.deleteMany();
-  await prisma.reaction.deleteMany();
   await prisma.studyDeleteLog.deleteMany();
   await prisma.study.deleteMany();
 
@@ -30,14 +29,14 @@ async function main() {
         { name: "프로그래머스 Lv.3 풀기", status: "DONE" },
         { name: "알고리즘 개념 정리하기", status: "UNDONE" },
       ],
-      reactions: [
-        { emoji: "👍", count: 5 },
-        { emoji: "🔥", count: 3 },
-        { emoji: "💪", count: 7 },
-        { emoji: "🎉", count: 4 },
-        { emoji: "❤️", count: 6 },
-        { emoji: "🌟", count: 2 },
-      ],
+      reactions: {
+        "👍": 5,
+        "🔥": 3,
+        "💪": 7,
+        "🎉": 4,
+        "❤️": 6,
+        "🌟": 2,
+      },
     },
     {
       nick: "CS지식킹",
@@ -51,14 +50,7 @@ async function main() {
         { name: "네트워크 공부", status: "UNDONE" },
         { name: "데이터베이스 공부", status: "UNDONE" },
       ],
-      reactions: [
-        { emoji: "👍", count: 8 },
-        { emoji: "🎯", count: 4 },
-        { emoji: "📚", count: 6 },
-        { emoji: "🧠", count: 5 },
-        { emoji: "💡", count: 7 },
-        { emoji: "✨", count: 3 },
-      ],
+      reactions: { "👍": 8, "🎯": 4, "📚": 6, "🧠": 5, "💡": 7, "✨": 3 },
     },
     {
       nick: "영어천재",
@@ -72,14 +64,7 @@ async function main() {
         { name: "토익 RC 5문제 풀기", status: "DONE" },
         { name: "토익 LC 듣기 연습", status: "UNDONE" },
       ],
-      reactions: [
-        { emoji: "✨", count: 4 },
-        { emoji: "💯", count: 2 },
-        { emoji: "🌟", count: 5 },
-        { emoji: "📝", count: 6 },
-        { emoji: "🎓", count: 3 },
-        { emoji: "🔤", count: 4 },
-      ],
+      reactions: { "✨": 4, "💯": 2, "🌟": 5, "📝": 6, "🎓": 3, "🔤": 4 },
     },
     {
       nick: "헬스매니아",
@@ -93,14 +78,7 @@ async function main() {
         { name: "유산소 운동", status: "UNDONE" },
         { name: "스트레칭", status: "DONE" },
       ],
-      reactions: [
-        { emoji: "💪", count: 10 },
-        { emoji: "🔥", count: 6 },
-        { emoji: "👍", count: 8 },
-        { emoji: "🏃", count: 5 },
-        { emoji: "🎽", count: 4 },
-        { emoji: "⚡", count: 7 },
-      ],
+      reactions: { "💪": 10, "🔥": 6, "👍": 8, "🏃": 5, "🎽": 4, "⚡": 7 },
     },
     {
       nick: "독서광",
@@ -114,14 +92,7 @@ async function main() {
         { name: "자기계발서 읽기", status: "UNDONE" },
         { name: "역사책 읽기", status: "UNDONE" },
       ],
-      reactions: [
-        { emoji: "📚", count: 7 },
-        { emoji: "✨", count: 3 },
-        { emoji: "👍", count: 5 },
-        { emoji: "🤓", count: 4 },
-        { emoji: "📖", count: 6 },
-        { emoji: "💭", count: 2 },
-      ],
+      reactions: { "📚": 7, "✨": 3, "👍": 5, "🤓": 4, "📖": 6, "💭": 2 },
     },
     {
       nick: "요리사",
@@ -135,14 +106,7 @@ async function main() {
         { name: "재료 손질", status: "UNDONE" },
         { name: "요리 실습", status: "DONE" },
       ],
-      reactions: [
-        { emoji: "🍳", count: 6 },
-        { emoji: "👍", count: 4 },
-        { emoji: "👏", count: 5 },
-        { emoji: "🔪", count: 3 },
-        { emoji: "👨‍🍳", count: 7 },
-        { emoji: "🍽️", count: 4 },
-      ],
+      reactions: { "🍳": 6, "👍": 4, "👏": 5, "🔪": 3, "👨‍🍳": 7, "🍽️": 4 },
     },
     {
       nick: "여행자",
@@ -156,14 +120,7 @@ async function main() {
         { name: "여행 경비 계산", status: "UNDONE" },
         { name: "여행 일정 짜기", status: "DONE" },
       ],
-      reactions: [
-        { emoji: "🌍", count: 9 },
-        { emoji: "✈️", count: 5 },
-        { emoji: "📅", count: 6 },
-        { emoji: "🎒", count: 4 },
-        { emoji: "🗺️", count: 7 },
-        { emoji: "🌴", count: 3 },
-      ],
+      reactions: { "🌍": 9, "✈️": 5, "📅": 6, "🎒": 4, "🗺️": 7, "🌴": 3 },
     },
   ];
 
@@ -177,17 +134,12 @@ async function main() {
         description: study.description,
         password: await bcrypt.hash(study.password, 10),
         background: study.background as ImageType,
+        reactions: study.reactions,
         point: study.point,
         habits: {
           create: study.habits.map((habit) => ({
             name: habit.name,
             status: habit.status as HabitStatus,
-          })),
-        },
-        reactions: {
-          create: study.reactions.map((reaction) => ({
-            emoji: reaction.emoji,
-            count: reaction.count,
           })),
         },
       },
@@ -229,7 +181,6 @@ async function main() {
     const studyDeleteLog = await prisma.studyDeleteLog.create({
       data: {
         studyId: createdStudy.id,
-        // reason: "테스트를 위한 삭제 로그",
       },
     });
 
@@ -240,7 +191,6 @@ async function main() {
   const summary = await prisma.$transaction([
     prisma.study.count(),
     prisma.habit.count(),
-    prisma.reaction.count(),
     prisma.deletedHabit.count(),
     prisma.studyDeleteLog.count(),
   ]);
@@ -248,9 +198,8 @@ async function main() {
   console.log("\n=== 데이터 생성 결과 ===");
   console.log(`스터디: ${summary[0]}개`);
   console.log(`습관: ${summary[1]}개`);
-  console.log(`리액션: ${summary[2]}개`);
-  console.log(`삭제된 습관: ${summary[3]}개`);
-  console.log(`스터디 삭제 로그: ${summary[4]}개`);
+  console.log(`삭제된 습관: ${summary[2]}개`);
+  console.log(`스터디 삭제 로그: ${summary[3]}개`);
 }
 
 main()
