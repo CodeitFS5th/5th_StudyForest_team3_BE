@@ -40,7 +40,6 @@ const deleteHabit: RequestHandler = async (req, res, next) => {
         data: {
           habitId: habit.id,
           name: habit.name,
-          status: habit.status,
           studyId: habit.studyId,
         },
       }),

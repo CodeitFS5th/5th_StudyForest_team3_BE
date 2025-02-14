@@ -15,7 +15,6 @@ const createHabit: RequestHandler = async (req, res, next) => {
       data: {
         studyId: studyId,
         name,
-        status: "UNDONE", // 기본값 설정
       },
     });
 

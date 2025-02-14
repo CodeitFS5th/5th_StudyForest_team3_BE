@@ -6,12 +6,12 @@ const updateHabit: RequestHandler = async (req, res, next) => {
     // assert 추가하세요 ^^
 
     const habitId: number = Number(req.params.id);
-    const { name, status } = req.body;
+    const { name } = req.body;
 
-    if (!name || !status) {
+    if (!name) {
       res
         .status(400)
-        .send({ message: "습관 생성 필수 요소가 누락되었습니다." });
+        .send({ message: "습관 이름이 누락되었습니다." });
       return;
     }
 
