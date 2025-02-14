@@ -4,4 +4,6 @@ model Reaction {
   count   Int    @default(0)
   studyId Int
   study   Study  @relation(fields: [studyId], references: [id])
+
+  @@index([studyId])
 }

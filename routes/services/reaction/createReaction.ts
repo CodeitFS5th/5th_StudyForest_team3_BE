@@ -19,7 +19,7 @@ export const createReaction: RequestHandler = async (req, res, next) => {
 
     let updatedReaction;
     if (existingReaction) {
-      // 기존 반응이 있으면 count 증가 dd
+      // 기존 반응이 있으면 count 증가
       updatedReaction = await prisma.reaction.update({
         where: { id: existingReaction.id },
         data: { count: { increment: 1 } },
