@@ -1,6 +1,6 @@
 ### Variables
-@baseUrl = http://localhost:3000
-@studyId = 19
+@baseUrl = http://localhost:8000
+@studyId = 100
 
 ### 스터디 생성
 POST {{baseUrl}}/study
@@ -63,4 +63,12 @@ Content-Type: application/json
 {
     "password": "testpassword123",
     "reason": "스터디를 더 이상 진행하지 않아 삭제합니다."
+}
+
+### 스터디 수정
+PATCH {{baseUrl}}/study/{{studyId}}
+Content-Type: application/json
+
+{
+    "point": 100
 }
