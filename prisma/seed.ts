@@ -1,4 +1,4 @@
-import { PrismaClient, ImageType, HabitStatus } from "@prisma/client";
+import { PrismaClient, ImageType } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -139,7 +139,6 @@ async function main() {
         habits: {
           create: study.habits.map((habit) => ({
             name: habit.name,
-            status: habit.status as HabitStatus,
           })),
         },
       },
@@ -172,7 +171,6 @@ async function main() {
       data: {
         habitId: 1,
         name: "삭제된 습관",
-        status: "UNDONE",
         studyId: createdStudy.id,
       },
     });
