@@ -12,8 +12,8 @@ const updateStudy: RequestHandler = async (req, res, next) => {
     const study = await prisma.study.findFirst({
       where: {
         id: studyId,
-      }
-    })
+      },
+    });
 
     if (!study) {
       res.status(404).send({ message: "스터디가 존재하지 않습니다!" });
@@ -21,7 +21,9 @@ const updateStudy: RequestHandler = async (req, res, next) => {
 
     // 바디에 최소 한개 값은 있어야 함.
     if (!nick && !name && !description && !password && !background && !point) {
-      res.status(400).send({ message: "바디의 값 중에 하나 최소 한개 값은 있어야 합니다." });
+      res
+        .status(400)
+        .send({ message: "바디의 값 중에 하나 최소 한개 값은 있어야 합니다." });
       return;
     }
 
@@ -31,7 +33,7 @@ const updateStudy: RequestHandler = async (req, res, next) => {
         id: studyId,
       },
       data: req.body,
-    })
+    });
 
     res.status(200).send(updatedStudy);
   } catch (error) {
