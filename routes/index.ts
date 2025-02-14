@@ -1,6 +1,5 @@
 import express from "express";
 import studyRouter from "./controllers/study";
-import reactionRouter from "./controllers/reaction";
 import habitRouter from "./controllers/habit";
 
 const router = express.Router();
@@ -10,7 +9,6 @@ router.get("/", (req, res) => {
 });
 
 router.use("/study", studyRouter);
-router.use("/reaction", reactionRouter);
 router.use("/habit", habitRouter);
 
 export default router;
