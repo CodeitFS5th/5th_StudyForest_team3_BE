@@ -1,18 +1,18 @@
 model Habit {
-  id        Int         @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
   studyId   Int
-  createdAt DateTime    @default(now())
-  study     Study       @relation(fields: [studyId], references: [id])
+  createdAt DateTime   @default(now())
+  study     Study      @relation(fields: [studyId], references: [id])
   logs      HabitLog[]
 }
 
 model DeletedHabit {
-  id        Int         @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   habitId   Int
   name      String
   studyId   Int
-  deletedAt DateTime    @default(now())
+  deletedAt DateTime @default(now())
 
   ///어떤 공부에서 어떤 습관이 삭제되었는가를 명확하게 하기 위해 둘다 가져옴
   @@index([habitId])
