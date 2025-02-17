@@ -40,12 +40,6 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       },
     });
 
-    // Error: 습관이 존재하지 않으면 에러 발생
-    if (habitList.length < 1) {
-      res.status(404).send({ message: "습관이 존재하지 않습니다!" });
-      return;
-    }
-
     res.status(200).send(habitList); // habitList만 전달 메시지 불필요
   } catch (error) {
     next(error);

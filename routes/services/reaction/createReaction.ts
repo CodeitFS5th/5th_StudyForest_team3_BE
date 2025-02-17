@@ -1,15 +1,14 @@
 import { RequestHandler } from "express";
 import { PrismaClient } from "@prisma/client";
 
-type Emoji = string;
-type Reaction = Record<Emoji, number>;
+type Reaction = Record<string, number>;
 
 const prisma = new PrismaClient();
 
 const createReaction: RequestHandler = async (req, res, next) => {
   try {
     const studyId = Number(req.params.id);
-    const emoji = req.body.emoji.trim() as Emoji;
+    const emoji = req.body.emoji;
 
     if (!studyId || !emoji) {
       res.status(400).json({ message: "studyId와 emoji가 필요합니다." });

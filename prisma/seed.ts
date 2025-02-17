@@ -21,7 +21,7 @@ async function main() {
       nick: "알고리즘마스터",
       name: "코딩테스트 준비",
       description: "매일 알고리즘 문제 3개씩 풀기",
-      password: "1234",
+      password: "12345678",
       background: "GREEN",
       point: 150,
       habits: [
@@ -42,7 +42,7 @@ async function main() {
       nick: "CS지식킹",
       name: "기술 면접 준비",
       description: "CS 지식 마스터하기",
-      password: "5678",
+      password: "12345678",
       background: "BLUE",
       point: 120,
       habits: [
@@ -56,7 +56,7 @@ async function main() {
       nick: "영어천재",
       name: "토익 900점 도전",
       description: "매일 영어 공부 2시간씩 하기",
-      password: "9012",
+      password: "12345678",
       background: "RED",
       point: 80,
       habits: [
@@ -70,7 +70,7 @@ async function main() {
       nick: "헬스매니아",
       name: "헬스 3개월 챌린지",
       description: "매일 헬스장 가기",
-      password: "3456",
+      password: "12345678",
       background: "YELLOW",
       point: 200,
       habits: [
@@ -84,7 +84,7 @@ async function main() {
       nick: "독서광",
       name: "한 달에 책 5권 읽기",
       description: "매일 독서 1시간",
-      password: "7890",
+      password: "12345678",
       background: "RED",
       point: 90,
       habits: [
@@ -98,7 +98,7 @@ async function main() {
       nick: "요리사",
       name: "요리 마스터하기",
       description: "매주 새로운 요리 도전",
-      password: "1122",
+      password: "12345678",
       background: "YELLOW",
       point: 110,
       habits: [
@@ -112,7 +112,7 @@ async function main() {
       nick: "여행자",
       name: "세계 여행 계획",
       description: "여행 계획 세우기",
-      password: "3344",
+      password: "12345678",
       background: "GREEN",
       point: 130,
       habits: [
