@@ -1,14 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
 import router from "./routes/index";
 import { errorHandler } from "./middleware/index";
+import dotenv from "dotenv";
 import cors from "cors";
 
+dotenv.config();
 const app = express();
 
 // 모든 출처를 허용하거나, 필요한 출처만 허용할 수 있습니다.
 app.use(
   cors({
-    origin: "http://localhost:3000", // 프론트엔드 URL 지정
+    origin: process.env.FRONTEND_URL, // 프론트엔드 URL 지정
     methods: ["GET", "POST", "PATCH", "DELETE"], // 허용할 HTTP 메서드
     allowedHeaders: ["Content-Type", "Authorization"], // 허용할 헤더
   })
