@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.patch("/:id", updateHabit);
 router.delete("/:id", deleteHabit);
-router.post("/:id/log/toggle", toogleHabitLog);
+router.post("/study/:id/log/toggle", toogleHabitLog);
 
 export default router;

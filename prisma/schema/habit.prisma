@@ -14,7 +14,7 @@ model DeletedHabit {
   studyId   Int
   deletedAt DateTime    @default(now())
 
-  ///어떤 공부에서 어떤 습관이 삭제되었는가를 명확하게 하기 위해 둘다 가져옴
+  
   @@index([habitId])
 }
 

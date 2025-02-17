@@ -5,7 +5,7 @@ interface GetHabitListRequest {
   studyId: number; // uuid로 변경 시 타입 변경 필요
 }
 
-const getHabitList: RequestHandler = async (req, res, next) => {
+const getHabitLogList: RequestHandler = async (req, res, next) => {
   try {
     const studyId = Number(req.params.id);
 
@@ -31,21 +31,11 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       where: {
         studyId,
       },
-    });
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const habitLogList = await prisma.habitLog.findMany({
-      where: {
-        habitId: {
-          in: habitList.map((habit) => habit.id),
-        },
-        createdAt: {
-          gte: today,
-          lt: tomorrow,
+      include: {
+        logs: {
+          orderBy: {
+            createdAt: "asc",
+          },
         },
       },
     });
@@ -56,15 +46,10 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const result = habitList.map((habit) => ({
-      ...habit,
-      isConfirm: habitLogList.some((log) => log.habitId === habit.id),
-    }));
-
-    res.status(200).send(result); // habitList만 전달 메시지 불필요
+    res.status(200).send(habitList); // habitList만 전달 메시지 불필요
   } catch (error) {
     next(error);
   }
 };
 
-export default getHabitList;
+export default getHabitLogList;
