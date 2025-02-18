@@ -31,6 +31,9 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       where: {
         studyId,
       },
+      orderBy: {
+        createdAt: "asc",
+      },
     });
 
     const today = new Date();
@@ -57,11 +60,10 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     const result = habitList.map((habit) => ({
       ...habit,
-      isConfirm: habitLogList.some((log) => log.habitId === habit.id),
+      isDone: habitLogList.some((log) => log.habitId === habit.id),
     }));
 
     res.status(200).send(result);
-
   } catch (error) {
     next(error);
   }
