@@ -28,7 +28,6 @@ router.post("/:id/auth", authStudyPassword); // /study/:id/auth
 router.get("/:id/habit-log-list", getHabitLogList); // /study/:id/habit
 router.get("/:id/habit", getHabitList); // /study/:id/habit
 router.post("/:id/habit", createHabit);
-router.post("/:id/log/toggle", toggleHabitLog);
 router.patch("/:id/habit", updateHabits);
 
 router.post("/:id/reaction", createReaction); // /study/:id/reaction

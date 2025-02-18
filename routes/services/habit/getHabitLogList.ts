@@ -40,8 +40,7 @@ const getHabitLogList: RequestHandler = async (req, res, next) => {
       },
     });
 
-    // Error: 습관이 존재하지 않으면 에러 발생
-    if (habitList.length < 1) {
+    if (!habitList) {
       res.status(404).send([]);
       return;
     }

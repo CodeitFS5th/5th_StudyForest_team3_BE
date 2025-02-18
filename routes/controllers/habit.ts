@@ -1,12 +1,12 @@
 import express from "express";
 import updateHabit from "../services/habit/updateHabit";
 import deleteHabit from "../services/habit/deleteHabit";
-import toogleHabitLog from "../services/habit/toggleHabitLog";
+import toggleHabitLog from "../services/habit/toggleHabitLog";
 
 const router = express.Router();
 
 router.patch("/:id", updateHabit);
 router.delete("/:id", deleteHabit);
-router.post("/study/:id/log/toggle", toogleHabitLog);
+router.post("/:id/log/toggle", toggleHabitLog);
 
 export default router;
