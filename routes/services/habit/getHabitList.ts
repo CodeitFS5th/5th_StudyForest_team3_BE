@@ -61,6 +61,7 @@ const getHabitList: RequestHandler = async (req, res, next) => {
     }));
 
     res.status(200).send(result);
+
   } catch (error) {
     next(error);
   }

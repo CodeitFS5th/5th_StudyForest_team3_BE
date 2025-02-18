@@ -1,18 +1,18 @@
 model Habit {
-  id        Int         @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
   studyId   Int
-  createdAt DateTime    @default(now())
-  study     Study       @relation(fields: [studyId], references: [id])
+  createdAt DateTime   @default(now())
+  study     Study      @relation(fields: [studyId], references: [id])
   logs      HabitLog[]
 }
 
 model DeletedHabit {
-  id        Int         @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   habitId   Int
   name      String
   studyId   Int
-  deletedAt DateTime    @default(now())
+  deletedAt DateTime @default(now())
 
   
   @@index([habitId])
