@@ -57,7 +57,7 @@ const getHabitList: RequestHandler = async (req, res, next) => {
 
     const result = habitList.map((habit) => ({
       ...habit,
-      isConfirm: habitLogList.some((log) => log.habitId === habit.id),
+      isDone: habitLogList.some((log) => log.habitId === habit.id),
     }));
 
     res.status(200).send(result);
