@@ -31,6 +31,9 @@ const getHabitLogList: RequestHandler = async (req, res, next) => {
       where: {
         studyId,
       },
+      orderBy: {
+        createdAt: "asc",
+      },
       include: {
         logs: {
           orderBy: {
