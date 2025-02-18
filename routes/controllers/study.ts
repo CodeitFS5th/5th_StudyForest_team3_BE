@@ -9,7 +9,6 @@ import authStudyPassword from "../services/study/authStudyPassword";
 import createHabit from "../services/habit/createHabit";
 import updateHabits from "../services/habit/updateHabits";
 import createReaction from "../services/reaction/createReaction";
-import toggleHabitLog from "../services/habit/toggleHabitLog";
 import getHabitLogList from "../services/habit/getHabitLogList";
 import getHabitList from "../services/habit/getHabitList";
 
@@ -28,7 +27,7 @@ router.post("/:id/auth", authStudyPassword); // /study/:id/auth
 router.get("/:id/habit-log-list", getHabitLogList); // /study/:id/habit
 router.get("/:id/habit", getHabitList); // /study/:id/habit
 router.post("/:id/habit", createHabit);
-router.patch("/:id/habit", updateHabits);
+router.patch("/:id/habit", updateHabits); // /study/:id/habit
 
 router.post("/:id/reaction", createReaction); // /study/:id/reaction
 
