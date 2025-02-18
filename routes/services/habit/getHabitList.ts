@@ -31,6 +31,9 @@ const getHabitList: RequestHandler = async (req, res, next) => {
       where: {
         studyId,
       },
+      orderBy: {
+        createdAt: "asc",
+      },
     });
 
     const today = new Date();
